@@ -1,0 +1,4 @@
+github.com/gotk3/gotk3 v0.4.0 h1:TIuhyQitGeRTxOQIV3AJlYtEWWJpC74JHwAIsxlH8MU=
+github.com/gotk3/gotk3 v0.4.0/go.mod h1:Eew3QBwAOBTrfFFDmsDE5wZWbcagBL1NUslj1GhRveo=
+github.com/joaowiciuk/gotk-util v0.1.1 h1:T5TEhx52u19SxYVW/5c2F24R/yZDPuywOugs4KfbN5Y=
+github.com/joaowiciuk/gotk-util v0.1.1/go.mod h1:A12JntagfrZ2g34Z9C54te5L3AQlkscMT/nBfAWpzrg=
