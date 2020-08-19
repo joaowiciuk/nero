@@ -18,7 +18,7 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="title" translatable="yes">Nero</property>
-        <property name="subtitle" translatable="yes">CPU temperature monitor</property>
+        <property name="subtitle" translatable="yes">CPU temperature watcher</property>
         <property name="show_close_button">True</property>
       </object>
     </child>
