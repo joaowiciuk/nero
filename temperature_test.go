@@ -24,10 +24,7 @@ func Test_watchTemperature(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			tempChan, err := watchTemperature(tt.args.command, tt.args.pattern)
-			if err != nil {
-				t.Errorf("watchTemperature error: %v\n", err)
-			}
+			tempChan := watchTemperature(tt.args.command, tt.args.pattern)
 			ticker := time.Tick(4 * time.Second)
 			temperatures := make([]float64, 0)
 			select {

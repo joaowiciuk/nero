@@ -1,6 +1,8 @@
 package main
 
 import (
+	"bytes"
+	"fmt"
 	"log"
 	"os"
 
@@ -48,6 +50,36 @@ func main() {
 			"on_main_window_destroy": onMainWindowDestroy,
 		}
 		builder.ConnectSignals(signals)
+
+		obj, err = builder.GetObject("label_temperature")
+		errorCheck(err)
+		labelTemperature, err := util.IsLabel(obj)
+		errorCheck(err)
+
+		/* obj, err = builder.GetObject("drawing_area")
+		errorCheck(err)
+		drawingArea, err := util.IsDrawingArea(obj)
+		errorCheck(err) */
+
+		temperatures := make([]float64, 0)
+		temperatureChan := watchTemperature("sensors", `Core 0:\ +(\+.*?)°C`)
+		errorCheck(err)
+		go func() {
+			for {
+				select {
+				case temperature := <-temperatureChan:
+					temperatures = append(temperatures, temperature)
+					glib.IdleAdd(labelTemperature.SetText, fmt.Sprintf("%.2f° C", temperature))
+					w, err := plotTemperatures(temperatures)
+					errorCheck(err)
+
+					var buffer bytes.Buffer
+					n, err := w.WriteTo(&buffer)
+					errorCheck(err)
+					log.Printf("%d bytes writen to buffer\n", n)
+				}
+			}
+		}()
 
 		// Show the Window and all of its components.
 		//mainWindow.Maximize()

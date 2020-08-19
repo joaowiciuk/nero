@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os/exec"
 	"regexp"
@@ -9,22 +8,23 @@ import (
 	"time"
 )
 
-func watchTemperature(command, pattern string) (chan float64, error) {
+func watchTemperature(command, pattern string) chan float64 {
 	output := make(chan float64)
-	cmd := exec.Command(command)
 	regex := regexp.MustCompile(pattern)
 	buffer := make([]byte, 400)
-
-	stdout, err := cmd.StdoutPipe()
-	if err != nil {
-		return nil, fmt.Errorf("error: couldn't get command output pipe: %v", err)
-	}
 
 	ticker := time.Tick(2 * time.Second)
 	go func() {
 		for {
 			select {
 			case _ = <-ticker:
+				cmd := exec.Command(command)
+				stdout, err := cmd.StdoutPipe()
+				if err != nil {
+					log.Printf("error getting stdout: %v", err)
+					continue
+				}
+
 				if err := cmd.Start(); err != nil {
 					log.Printf("error starting command: %v\n", err)
 					continue
@@ -53,5 +53,5 @@ func watchTemperature(command, pattern string) (chan float64, error) {
 			}
 		}
 	}()
-	return output, nil
+	return output
 }
