@@ -4,6 +4,7 @@
   <requires lib="gtk+" version="3.22"/>
   <object class="GtkApplicationWindow" id="main_window">
     <property name="can_focus">False</property>
+    <property name="resizable">False</property>
     <property name="window_position">center</property>
     <property name="default_width">440</property>
     <property name="default_height">250</property>
@@ -29,9 +30,12 @@
           </packing>
         </child>
         <child>
-          <object class="GtkDrawingArea" id="drawing_area">
+          <object class="GtkImage" id="drawing_area">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <property name="stock">gtk-missing-image</property>
           </object>
           <packing>
             <property name="expand">True</property>
