@@ -18,6 +18,8 @@ var application *gtk.Application
 var builder *gtk.Builder
 var mainWindow *gtk.ApplicationWindow
 
+//go:generate file2byteslice -input resources/ui/main.glade -output glade-ui.go -var gladeUI
+
 func main() {
 
 	// Create a new application.
@@ -35,7 +37,10 @@ func main() {
 		log.Println("application activate")
 
 		// Get the GtkBuilder UI definition in the glade file.
-		builder, err = gtk.BuilderNewFromFile("resources/ui/main.glade")
+		builder, err = gtk.BuilderNew()
+		errorCheck(err)
+
+		err = builder.AddFromString(string(gladeUI))
 		errorCheck(err)
 
 		// Get the object with the id of "main_window".
