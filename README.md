@@ -17,7 +17,7 @@ A CPU temperature watcher based on Go bindings for GTK3+ [gotk3](https://github.
 
 ```bash
 go get -d -u github.com/joaowiciuk/nero
-cd $GOPATH/src/github.com/joaowiciuk/nero
+cd $(go env GOPATH)/src/github.com/joaowiciuk/nero
 go generate
 go install
 ```
